@@ -1,5 +1,5 @@
 [package]
-name = "verirunner"
+name = "verimaker"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 sv-parser = "0.13.1"
+walkdir = "2"
