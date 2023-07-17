@@ -1,1 +1,4 @@
-FIFO
+FFT_unit
+├─ shift_reg
+├─ butt2
+└─ FIFO

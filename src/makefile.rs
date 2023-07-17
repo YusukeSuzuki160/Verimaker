@@ -18,6 +18,10 @@ impl Makefile {
         makefile.push_str(&format!("SRCS = {}\n", self.srcs.join(" ")));
         makefile.push_str(&format!("TARGET = {}\n\n", self.target));
         makefile.push_str(&format!("$(TARGET): $(SRCS)\n\t$(RUN) $(SRCS)\n"));
+        makefile.push_str(&format!("\n.PHONY: clean\n\nclean:\n\trm -f $(TARGET)\n"));
+        makefile.push_str(&format!("\n.PHONY: clean_all\n\nclean_all:\n\trm -f $(TARGET)\n\tfind . -name \"*.vcd\" -delete\n"));  
+        makefile.push_str(&format!("\n.PHONY: run\n\nrun:\n\t$(RUN) $(SRCS)\n"));
+        makefile.push_str(&format!("\t./$(TARGET)\n"));
         makefile
     }
 }
