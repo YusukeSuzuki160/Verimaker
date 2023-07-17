@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 sv-parser = "0.13.1"
 walkdir = "2"
+ptree = "0.4.0"
