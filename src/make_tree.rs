@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use ptree::TreeBuilder;
-use ptree::output::print_tree;
+use ptree::output::write_tree;
 
 
 pub fn print_dependence_tree(graph: HashMap<String, Vec<String>>) {
@@ -10,7 +10,9 @@ pub fn print_dependence_tree(graph: HashMap<String, Vec<String>>) {
         add_tree(&mut tree, neighbor, &graph);
     }
     let tree = tree.build();
-    print_tree(&tree);
+    let output = "verilog.tree";
+    let output = std::fs::File::create(output).unwrap();
+    write_tree(&tree, output);
 }
 
 fn add_tree(tree: &mut TreeBuilder, node: &String, graph: &HashMap<String, Vec<String>>) {

@@ -4,8 +4,11 @@ pub fn topological_sort(graph: HashMap<String, Vec<String>>) -> HashMap<String, 
     let mut sorted: HashMap<String, Vec<String>> = HashMap::new();
     let mut visited: HashMap<String, bool> = HashMap::new();
 
-    for (node, _) in &graph {
+    for (node, children) in &graph {
         visited.insert(node.to_string(), false);
+        for child in children {
+            visited.insert(child.to_string(), false);
+        }
     }
 
     for (node, _) in &graph {

@@ -28,23 +28,22 @@ pub fn get_module(path: &Path) -> Result<(Vec<String>, HashMap<String, Vec<Strin
 
                     // Original string can be got by SyntaxTree::get_str(self, locate: &Locate)
                     let id = syntax_tree.get_str(&id).unwrap();
-                    println!("module: {}", id);
                     current_module = id.to_string();
                     module_list.push(id.to_string());
+                    dependensies.insert(current_module.to_string(), Vec::new());
                 }
                 RefNode::ModuleDeclarationAnsi(x) => {
                     let id = unwrap_node!(x, ModuleIdentifier).unwrap();
                     let id = get_identifier(id).unwrap();
                     let id = syntax_tree.get_str(&id).unwrap();
-                    println!("module: {}", id);
                     current_module = id.to_string();
                     module_list.push(id.to_string());
+                    dependensies.insert(current_module.to_string(), Vec::new());
                 }
                 RefNode::ModuleInstantiation(x) => {
                     let id = unwrap_node!(x, ModuleIdentifier).unwrap();
                     let id = get_identifier(id).unwrap();
                     let id = syntax_tree.get_str(&id).unwrap();
-                    println!("module: {}", id);
                     if dependensies.contains_key(&current_module) {
                         let dependensies_vec : &mut Vec<String> = dependensies.get_mut(&current_module).unwrap();
                         if dependensies_vec.contains(&id.to_string()) {

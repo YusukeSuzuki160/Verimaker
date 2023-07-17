@@ -35,10 +35,13 @@ pub fn gen_file_module_list(path: PathBuf) -> io::Result<(HashMap<String, Vec<St
     let mut dependense_graph = HashMap::new();
     for file in files(&path) {
         let file_name = file.to_str().unwrap();
+        match file_name.split(".").last() {
+            Some("sv") => {},
+            _ => continue,
+        }
         let file_path = Path::new(file_name);
         let (result, dependensies) = get_module(file_path).unwrap();
         for module in result {
-            println!("module: {}", module);
             if module_list.contains_key(file_name) {
                 let module_list_vec : &mut Vec<String> = module_list.get_mut(file_name).unwrap();
                 module_list_vec.push(module);
