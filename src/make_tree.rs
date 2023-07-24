@@ -3,10 +3,9 @@ use ptree::TreeBuilder;
 use ptree::output::write_tree;
 
 
-pub fn print_dependence_tree(graph: HashMap<String, Vec<String>>) {
-    let top = graph.keys().next().unwrap();
+pub fn print_dependence_tree(graph: HashMap<String, Vec<String>>, top: String) { // Print dependence tree
     let mut tree = TreeBuilder::new(top.clone());
-    for neighbor in &graph[top] {
+    for neighbor in &graph[&top] {
         add_tree(&mut tree, neighbor, &graph);
     }
     let tree = tree.build();
@@ -15,7 +14,7 @@ pub fn print_dependence_tree(graph: HashMap<String, Vec<String>>) {
     write_tree(&tree, output);
 }
 
-fn add_tree(tree: &mut TreeBuilder, node: &String, graph: &HashMap<String, Vec<String>>) {
+fn add_tree(tree: &mut TreeBuilder, node: &String, graph: &HashMap<String, Vec<String>>) { // Add node to tree
     tree.begin_child(node.clone());
     for neighbor in &graph[node] {
         add_tree(tree, neighbor, graph);

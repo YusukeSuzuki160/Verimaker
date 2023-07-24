@@ -47,54 +47,6 @@ module top (
   assign w[30] = 32'b00000000110010010000011111110110;
   assign w[31] = 32'b11111000000010100000000011001001;
 
-  FFT_unit fft_unit1 (
-      .clk(clk),
-      .nrst(nrst),
-      .data_in(data_in),
-      .w(w[0]),
-      .data_out(data_stage1),
-      .is_out(is_out1)
-  );
-  FFT_unit fft_unit2 (
-      .clk(clk),
-      .nrst(nrst_stage2),
-      .data_in(data_stage1),
-      .w(w[cnt2]),
-      .data_out(data_stage2),
-      .is_out(is_out2)
-  );
-  FFT_unit fft_unit3 (
-      .clk(clk),
-      .nrst(nrst_stage3),
-      .data_in(data_stage2),
-      .w(w[cnt3]),
-      .data_out(data_stage3),
-      .is_out(is_out3)
-  );
-  FFT_unit fft_unit4 (
-      .clk(clk),
-      .nrst(nrst_stage4),
-      .data_in(data_stage3),
-      .w(w[cnt4]),
-      .data_out(data_stage4),
-      .is_out(is_out4)
-  );
-  FFT_unit fft_unit5 (
-      .clk(clk),
-      .nrst(nrst_stage5),
-      .data_in(data_stage4),
-      .w(w[cnt5]),
-      .data_out(data_stage5),
-      .is_out(is_out5)
-  );
-  FFT_unit fft_unit6 (
-      .clk(clk),
-      .nrst(nrst_stage6),
-      .data_in(data_stage5),
-      .w(w[cnt6]),
-      .data_out(data_stage6),
-      .is_out(is_out6)
-  );
   reorder ro (
       .clk(clk),
       .nrst(nrst_ro),

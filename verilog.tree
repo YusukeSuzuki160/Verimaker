@@ -1,4 +1,7 @@
-FFT_unit
-├─ shift_reg
-├─ butt2
-└─ FIFO
+top_sim
+└─ top
+   ├─ FFT_unit
+   │  ├─ shift_reg
+   │  ├─ butt2
+   │  └─ FIFO
+   └─ reorder

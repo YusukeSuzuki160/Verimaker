@@ -4,7 +4,7 @@ use std::io;
 use walkdir::{WalkDir, DirEntry};
 use std::collections::HashMap;
 
-struct Files {
+struct Files { // This struct is used to get all files under path as iterator
     inner: Box<dyn Iterator<Item = walkdir::Result<DirEntry>>>,
 }
 
@@ -26,11 +26,11 @@ impl Iterator for Files {
     }
 }
 
-fn files(path: &PathBuf) -> Files {
+fn files(path: &PathBuf) -> Files { // Generate Files struct
     Files { inner: Box::new(WalkDir::new(path).into_iter()) }
 }
 
-pub fn gen_file_module_list(path: PathBuf) -> io::Result<(HashMap<String, Vec<String>>, HashMap<String, Vec<String>>)> { // Get all modules from file under path
+pub fn gen_file_module_list(path: PathBuf) -> io::Result<(HashMap<String, Vec<String>>, HashMap<String, Vec<String>>)> { // Generate filename, module list and module dependense graph
     let mut module_list = HashMap::new();
     let mut dependense_graph = HashMap::new();
     for file in files(&path) {
@@ -67,7 +67,8 @@ fn test_apply_to_each_file() {
     });
     assert_eq!(dependensies, {
         let mut map = HashMap::new();
-        map.insert("top".to_string(), vec!["FFT_unit".to_string(), "reorder".to_string()]);
+        map.insert("reorder".to_string(), Vec::new());
+        map.insert("top".to_string(), vec!["reorder".to_string()]);
         map
     });
 }

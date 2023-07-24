@@ -2,7 +2,7 @@ use std::path::{Path, PathBuf};
 use sv_parser::{parse_sv, unwrap_node, Locate, RefNode};
 use std::collections::HashMap;
 
-pub fn get_module(path: &Path) -> Result<(Vec<String>, HashMap<String, Vec<String>>), &'static str> {
+pub fn get_module(path: &Path) -> Result<(Vec<String>, HashMap<String, Vec<String>>), &'static str> { // Get module list and dependense graph from file of the path
     
     // The list of defined macros
     let defines = HashMap::new();
@@ -65,7 +65,7 @@ pub fn get_module(path: &Path) -> Result<(Vec<String>, HashMap<String, Vec<Strin
     }
 }
 
-fn get_identifier(node: RefNode) -> Option<Locate> {
+fn get_identifier(node: RefNode) -> Option<Locate> { // Get identifier from node
     // unwrap_node! can take multiple types
     match unwrap_node!(node, SimpleIdentifier, EscapedIdentifier) {
         Some(RefNode::SimpleIdentifier(x)) => {
@@ -89,7 +89,7 @@ mod tests {
         assert_eq!(modue_list, vec!["top".to_string()]);
         assert_eq!(dependensies, {
             let mut map = HashMap::new();
-            map.insert("top".to_string(), vec!["FFT_unit".to_string(), "reorder".to_string()]);
+            map.insert("top".to_string(), vec!["reorder".to_string()]);
             map
         });
     }

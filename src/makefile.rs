@@ -1,11 +1,11 @@
-pub struct Makefile {
-    run: &'static str,
+pub struct Makefile<'a> { // Struct for generating Makefile
+    run: &'a str,
     srcs: Vec<String>,
-    target: &'static str,
+    target: &'a str,
 }
 
-impl Makefile {
-    pub fn new(run: &'static str, srcs: Vec<String>, target: &'static str) -> Self {
+impl <'a> Makefile<'a> {
+    pub fn new(run: &'a str, srcs: Vec<String>, target: &'a str) -> Self {
         Self {
             run,
             srcs,
@@ -29,5 +29,5 @@ impl Makefile {
 #[test]
 fn test_makefile_gen() {
     let makefile = Makefile::new("run", vec!["src1".to_string(), "src2".to_string()], "target");
-    assert_eq!(makefile.gen(), "RUN = run\nSRCS = src1 src2\nTARGET = target\n\n$(TARGET): $(SRCS)\n\t$(RUN) $(SRCS)\n");
+    assert_eq!(makefile.gen(), "RUN = run\nSRCS = src1 src2\nTARGET = target\n\n$(TARGET): $(SRCS)\n\t$(RUN) $(SRCS)\n\n.PHONY: clean\n\nclean:\n\trm -f $(TARGET)\n\n.PHONY: clean_all\n\nclean_all:\n\trm -f $(TARGET)\n\tfind . -name \"*.vcd\" -delete\n\n.PHONY: run\n\nrun:\n\t$(RUN) $(SRCS)\n\t./$(TARGET)\n");
 }

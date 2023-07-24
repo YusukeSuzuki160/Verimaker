@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub fn topological_sort(graph: HashMap<String, Vec<String>>) -> HashMap<String, Vec<String>> {
+pub fn topological_sort(graph: HashMap<String, Vec<String>>) -> HashMap<String, Vec<String>> { // Topological sort for generating dependence tree
     let mut sorted: HashMap<String, Vec<String>> = HashMap::new();
     let mut visited: HashMap<String, bool> = HashMap::new();
 
@@ -20,7 +20,7 @@ pub fn topological_sort(graph: HashMap<String, Vec<String>>) -> HashMap<String, 
     sorted
 }
 
-fn dfs(
+fn dfs( // Depth first search for topological sort
     node: &String,
     graph: &HashMap<String, Vec<String>>,
     visited: &mut HashMap<String, bool>,
